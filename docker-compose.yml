@@ -1,0 +1,24 @@
+#created with dockerautocompose. not tested
+version: "3.6"
+services:
+  audiobookshelf:
+    command:
+      - npm
+      - start
+    container_name: audiobookshelf
+    environment:
+      - GID=101
+      - NODE_VERSION=16.14.2
+      - UID=101
+      - YARN_VERSION=1.22.18
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - NODE_ENV=production
+    image: advplyr/audiobookshelf:latest
+    ports:
+      - ${PORT}:80/tcp
+    restart: unless-stopped
+    volumes:
+      - ${METADATA}:/metadata
+      - ${PODCASTS}:/podcasts
+      - ${AUDIOBOOKS}:/audiobooks
+      - ${CONFIG}:/config
